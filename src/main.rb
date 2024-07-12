@@ -2,20 +2,21 @@ require_relative "RequestProcess"
 require_relative "Init"
 require_relative "Interact"
 puts "
+           (              (     
+   (       )\\ )     (     )\\ )  
+   )\\     (()/(   ( )\\   (()/(  
+((((_)(    /(_))  )((_)   /(_)) 
+ )\\ _ )\\  (_))   ((_)_   (_))   
+ (_)_\\(_) / __|   / _ \\  | |    
+  / _ \\   \\__ \\  | (_) | | |__  
+ /_/ \\_\\  |___/   \\__\\_\\ |____| 
 
-  /$$$$$$   /$$$$$$   /$$$$$$  /$$      
- /$$__  $$ /$$__  $$ /$$__  $$| $$      
-| $$  \\ $$| $$  \\__/| $$  \\ $$| $$      
-| $$$$$$$$|  $$$$$$ | $$  | $$| $$      
-| $$__  $$ \\____  $$| $$  | $$| $$      
-| $$  | $$ /$$  \\ $$| $$/$$ $$| $$      
-| $$  | $$|  $$$$$$/|  $$$$$$/| $$$$$$$$
-|__/  |__/ \\______/  \\____ $$$|________/
-                          \\__/          
+ 
 "
 
 control = ""
 database = ""
+settings = {"tabsize" => 4}
 until control == "EXIT" do
   print "ASQL>"
   input = gets.chomp
@@ -30,6 +31,8 @@ until control == "EXIT" do
   elsif control == "INITDB" then
     Init(*value)
   elsif control == "INTERACT" then
-    Interact(database)
+    Interact(database, settings)
+  elsif control == "SET" then
+    settings[value[0]] = Integer(value[1])
   end
 end

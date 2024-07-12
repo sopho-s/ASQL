@@ -1,6 +1,6 @@
 require_relative "Parser"
 
-def Interact(dbname)
+def Interact(dbname, settings)
   hashdb = ParseDB(dbname)
   command = ""
   until command == "exit" do
@@ -8,7 +8,7 @@ def Interact(dbname)
     command = gets.chomp
     parsedcommand = ParseCommand(command)
     table, header = DoCommand(hashdb, parsedcommand)
-    PrintTable(table, header)
+    PrintTable(table, header, settings)
     puts "\n"
   end
   puts "Exiting interact mode"
@@ -24,7 +24,7 @@ def DoCommand(hashdb, command)
   return returnval
 end
 
-def PrintTable(table, headers)
+def PrintTable(table, headers, settings)
   if table == nil then
     puts "Invalid command"
     return
@@ -33,8 +33,8 @@ def PrintTable(table, headers)
   tabsize = []
   headers.each do |header|
     print "#{header}"
-    currtabsize = ((header.length + 4.0) / 4.0).ceil
-    (currtabsize * 4 - header.length).times do
+    currtabsize = ((header.length + settings["tabsize"].to_f) / settings["tabsize"].to_f).ceil
+    (currtabsize * settings["tabsize"] - header.length).times do
       print " "
     end
     print "|"
@@ -46,7 +46,7 @@ def PrintTable(table, headers)
     fieldindex = 0
     entry.each do |field|
       print "#{field}"
-      tabam = tabsize[fieldindex] * 4 - "#{field}".length
+      tabam = tabsize[fieldindex] * settings["tabsize"] - "#{field}".length
       tabam.times do
         print " "
       end

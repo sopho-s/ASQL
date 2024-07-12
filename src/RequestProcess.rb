@@ -8,6 +8,8 @@ def InterpretInput(input)
     return [""], "EXIT", "Exiting"
   elsif splitin[0] == "interact" then
     return [""], "INTERACT", "Loading database..."
+  elsif splitin[0] == "set" then
+    return [splitin[1], splitin[2]], "SET", "Setting #{splitin[1]} to #{splitin[2]}"
   end
   return "", "", ""
 end
